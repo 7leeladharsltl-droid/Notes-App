@@ -1,0 +1,670 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NoteNest — Capture. Organize. Remember.</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= APP ================= -->
+
+    <div class="app">
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <aside class="sidebar" id="sidebar">
+
+            <div class="brand">
+
+                <div class="brand-logo">
+
+                    <!-- BOOK + PEN LOGO -->
+
+                    <svg viewBox="0 0 64 64" aria-hidden="true">
+
+                        <path
+                            class="logo-book"
+                            d="M12 10h30c5 0 9 4 9 9v35H21c-5 0-9-4-9-9V10z"
+                        />
+
+                        <path
+                            class="logo-page"
+                            d="M21 54h30V19c0-5-4-9-9-9H21v44z"
+                        />
+
+                        <path
+                            class="logo-pen"
+                            d="M40 13l11 11-19 19-9 2 2-9 19-23z"
+                        />
+
+                    </svg>
+
+                </div>
+
+                <div class="brand-text">
+                    <h1>NoteNest</h1>
+                    <p>Capture. Organize. Remember.</p>
+                </div>
+
+            </div>
+
+
+            <!-- NEW NOTE -->
+
+            <button class="new-note-button" id="newNoteBtn">
+                <span class="plus-icon">+</span>
+                <span>New Note</span>
+            </button>
+
+
+            <!-- MAIN MENU -->
+
+            <nav class="navigation">
+
+                <p class="nav-title">WORKSPACE</p>
+
+                <button class="nav-item active" data-view="notes">
+                    <span>📝</span>
+                    <span>All Notes</span>
+                    <b id="notesCount">0</b>
+                </button>
+
+                <button class="nav-item" data-view="favorites">
+                    <span>⭐</span>
+                    <span>Favorites</span>
+                </button>
+
+                <button class="nav-item" data-view="pinned">
+                    <span>📌</span>
+                    <span>Pinned</span>
+                </button>
+
+                <button class="nav-item" data-view="archive">
+                    <span>📦</span>
+                    <span>Archive</span>
+                </button>
+
+
+                <p class="nav-title">LIBRARY</p>
+
+                <button class="nav-item" data-view="categories">
+                    <span>🏷️</span>
+                    <span>Categories</span>
+                </button>
+
+                <button class="nav-item" data-view="trash">
+                    <span>🗑️</span>
+                    <span>Trash</span>
+                    <b id="trashCount">0</b>
+                </button>
+
+            </nav>
+
+
+            <!-- SIDEBAR BOTTOM -->
+
+            <div class="sidebar-bottom">
+
+                <button class="bottom-item" id="themeBtn">
+                    <span id="themeIcon">🌙</span>
+                    <span id="themeText">Dark Mode</span>
+                </button>
+
+                <button class="bottom-item" id="settingsBtn">
+                    <span>⚙️</span>
+                    <span>Settings</span>
+                </button>
+
+                <div class="user-card">
+
+                    <div class="user-avatar">
+                        L
+                    </div>
+
+                    <div class="user-info">
+                        <strong>My Notes</strong>
+                        <small>Personal workspace</small>
+                    </div>
+
+                    <span class="user-menu">•••</span>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- ================= MAIN ================= -->
+
+        <main class="main-content">
+
+
+            <!-- TOPBAR -->
+
+            <header class="topbar">
+
+                <button class="mobile-menu" id="mobileMenu">
+                    ☰
+                </button>
+
+
+                <div class="search-container">
+
+                    <span class="search-icon">⌕</span>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search your notes..."
+                        autocomplete="off"
+                    >
+
+                    <span class="search-shortcut">⌘ K</span>
+
+                </div>
+
+
+                <div class="top-actions">
+
+                    <button
+                        class="icon-button"
+                        id="topThemeBtn"
+                        title="Toggle theme"
+                    >
+                        ☀️
+                    </button>
+
+                    <button
+                        class="icon-button"
+                        id="topSettingsBtn"
+                        title="Settings"
+                    >
+                        ⚙️
+                    </button>
+
+                    <div class="top-avatar">
+                        L
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- CONTENT -->
+
+            <section class="content">
+
+                <!-- PAGE HEADER -->
+
+                <div class="page-header">
+
+                    <div>
+
+                        <p class="welcome-label" id="welcomeLabel">
+                            YOUR PERSONAL WORKSPACE
+                        </p>
+
+                        <h2 id="pageTitle">
+                            All Notes
+                        </h2>
+
+                        <p id="pageDescription">
+                            Everything you've written, in one peaceful place.
+                        </p>
+
+                    </div>
+
+
+                    <div class="header-actions">
+
+                        <button class="sort-button" id="sortBtn">
+                            ↕ Sort
+                        </button>
+
+                        <button class="header-new-btn" id="headerNewBtn">
+                            + New Note
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CATEGORY FILTER -->
+
+                <div
+                    class="category-filter"
+                    id="categoryFilter"
+                ></div>
+
+
+                <!-- NOTES AREA -->
+
+                <div class="notes-area" id="notesArea">
+
+                    <!-- Notes generated by JavaScript -->
+
+                </div>
+
+
+                <!-- EMPTY STATE -->
+
+                <div
+                    class="empty-state"
+                    id="emptyState"
+                    style="display:none;"
+                >
+
+                    <div class="empty-icon">
+                        📖
+                    </div>
+
+                    <h3 id="emptyTitle">
+                        Your notebook is empty
+                    </h3>
+
+                    <p id="emptyDescription">
+                        Create your first note and start building your knowledge.
+                    </p>
+
+                    <button
+                        class="empty-button"
+                        id="emptyButton"
+                    >
+                        + Create your first note
+                    </button>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- ================= EDITOR MODAL ================= -->
+
+    <div class="modal-overlay" id="editorModal">
+
+        <div class="editor-modal">
+
+            <div class="editor-topbar">
+
+                <button class="close-button" id="closeEditor">
+                    ←
+                </button>
+
+                <div class="editor-status" id="editorStatus">
+                    New note
+                </div>
+
+                <div class="editor-top-actions">
+
+                    <button id="editorPinBtn">
+                        📌
+                    </button>
+
+                    <button id="editorFavoriteBtn">
+                        ☆
+                    </button>
+
+                    <button id="editorDeleteBtn">
+                        🗑️
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="editor-body">
+
+                <input
+                    type="text"
+                    id="noteTitle"
+                    class="note-title"
+                    placeholder="Untitled note"
+                    maxlength="120"
+                >
+
+
+                <div class="editor-meta">
+
+                    <select id="noteCategory">
+
+                        <option value="General">General</option>
+                        <option value="Study">Study</option>
+                        <option value="Work">Work</option>
+                        <option value="Ideas">Ideas</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Projects">Projects</option>
+
+                    </select>
+
+                    <span id="noteDate">
+                        New note
+                    </span>
+
+                </div>
+
+
+                <div class="editor-toolbar">
+
+                    <button
+                        type="button"
+                        data-insert="bullet"
+                        title="Bullet list"
+                    >
+                        • List
+                    </button>
+
+                    <button
+                        type="button"
+                        data-insert="number"
+                        title="Numbered list"
+                    >
+                        1. List
+                    </button>
+
+                    <button
+                        type="button"
+                        data-insert="check"
+                        title="Checklist"
+                    >
+                        ☑ Task
+                    </button>
+
+                    <button
+                        type="button"
+                        data-insert="divider"
+                        title="Divider"
+                    >
+                        ─ Divider
+                    </button>
+
+                    <button
+                        type="button"
+                        data-insert="date"
+                        title="Insert date"
+                    >
+                        📅 Date
+                    </button>
+
+                </div>
+
+
+                <textarea
+                    id="noteContent"
+                    class="note-content-editor"
+                    placeholder="Start writing your thoughts..."
+                ></textarea>
+
+
+                <div class="editor-footer">
+
+                    <div class="editor-info">
+
+                        <span id="wordCount">
+                            0 words
+                        </span>
+
+                        <span>•</span>
+
+                        <span id="characterCount">
+                            0 characters
+                        </span>
+
+                        <span>•</span>
+
+                        <span class="saved-indicator">
+                            ✓ Saved
+                        </span>
+
+                    </div>
+
+
+                    <div class="editor-buttons">
+
+                        <button
+                            class="cancel-button"
+                            id="cancelEditor"
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            class="save-button"
+                            id="saveNoteBtn"
+                        >
+                            ✓ Save Note
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= SETTINGS MODAL ================= -->
+
+    <div class="modal-overlay" id="settingsModal">
+
+        <div class="settings-modal">
+
+            <div class="settings-header">
+
+                <div>
+
+                    <h2>Settings</h2>
+
+                    <p>
+                        Customize your NoteNest experience.
+                    </p>
+
+                </div>
+
+                <button
+                    class="close-button"
+                    id="closeSettings"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="settings-content">
+
+
+                <div class="settings-section">
+
+                    <h3>Appearance</h3>
+
+                    <div class="setting-row">
+
+                        <div class="setting-label">
+
+                            <span>🌙</span>
+
+                            <div>
+                                <strong>Dark Mode</strong>
+                                <small>Use a darker interface at night.</small>
+                            </div>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                id="darkModeSwitch"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-section">
+
+                    <h3>Notes</h3>
+
+                    <div class="setting-row">
+
+                        <div class="setting-label">
+
+                            <span>💾</span>
+
+                            <div>
+                                <strong>Auto Save</strong>
+                                <small>Your notes are saved automatically.</small>
+                            </div>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                id="autoSaveSwitch"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-section">
+
+                    <h3>Data</h3>
+
+                    <div class="data-buttons">
+
+                        <button id="exportBtn">
+                            📤 Export Notes
+                        </button>
+
+                        <button id="importBtn">
+                            📥 Import Notes
+                        </button>
+
+                        <button
+                            id="clearTrashBtn"
+                            class="danger-outline"
+                        >
+                            🗑️ Empty Trash
+                        </button>
+
+                    </div>
+
+                    <input
+                        type="file"
+                        id="importFile"
+                        accept=".json"
+                        hidden
+                    >
+
+                </div>
+
+
+                <div class="settings-section stats-section">
+
+                    <h3>Statistics</h3>
+
+                    <div class="statistics">
+
+                        <div class="stat-box">
+                            <strong id="statTotal">0</strong>
+                            <span>Total Notes</span>
+                        </div>
+
+                        <div class="stat-box">
+                            <strong id="statPinned">0</strong>
+                            <span>Pinned</span>
+                        </div>
+
+                        <div class="stat-box">
+                            <strong id="statFavorites">0</strong>
+                            <span>Favorites</span>
+                        </div>
+
+                        <div class="stat-box">
+                            <strong id="statWords">0</strong>
+                            <span>Words</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= CONFIRM MODAL ================= -->
+
+    <div class="modal-overlay" id="confirmModal">
+
+        <div class="confirm-box">
+
+            <div class="confirm-icon">
+                ⚠️
+            </div>
+
+            <h3 id="confirmTitle">
+                Are you sure?
+            </h3>
+
+            <p id="confirmMessage">
+                This action cannot be undone.
+            </p>
+
+            <div class="confirm-buttons">
+
+                <button id="confirmCancel">
+                    Cancel
+                </button>
+
+                <button
+                    class="danger-button"
+                    id="confirmAction"
+                >
+                    Continue
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
